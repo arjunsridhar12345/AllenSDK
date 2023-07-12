@@ -183,7 +183,6 @@ def add_ecephys_electrodes(
             location=row["structure_acronym"],
             imp=row.get("impedence", row.get("impedance")),
             filtering=row["filtering"],
-            enforce_unique_id=False
         )
 
 
