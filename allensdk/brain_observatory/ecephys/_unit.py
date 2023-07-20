@@ -114,10 +114,6 @@ class Unit(DataObject):
         Fraction of violating spikes
         """
         return self._isi_violations
-
-    @property
-    def isi_label(self) -> str:
-        return self._isi_label
     
     @property
     def presence_ratio(self) -> float:
