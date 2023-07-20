@@ -71,7 +71,6 @@ class Unit(RaisingSchema):
     firing_rate = Float(required=True)
     snr = Float(required=True, allow_none=True)
     isi_violations = Float(required=True)
-    isi_label = String(required=True, allow_none=True)
     presence_ratio = Float(required=True)
     amplitude_cutoff = Float(required=True)
     isolation_distance = Float(required=True, allow_none=True)

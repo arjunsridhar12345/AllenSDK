@@ -19,7 +19,6 @@ class Unit(DataObject):
             quality: str,
             firing_rate: float,
             isi_violations: float,
-            isi_label: str,
             presence_ratio: float,
             amplitude_cutoff: float,
             mean_waveforms: np.ndarray,
@@ -58,7 +57,6 @@ class Unit(DataObject):
         self._quality = quality
         self._firing_rate = firing_rate
         self._isi_violations = isi_violations
-        self._isi_label = isi_label
         self._presence_ratio = presence_ratio
         self._amplitude_cutoff = amplitude_cutoff
         self._mean_waveforms = mean_waveforms
