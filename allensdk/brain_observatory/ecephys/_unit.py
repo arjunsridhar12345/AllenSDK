@@ -20,6 +20,7 @@ class Unit(DataObject):
             firing_rate: float,
             isi_violations: float,
             isi_label: str,
+            structure_layer: str,
             presence_ratio: float,
             amplitude_cutoff: float,
             mean_waveforms: np.ndarray,
@@ -59,6 +60,7 @@ class Unit(DataObject):
         self._firing_rate = firing_rate
         self._isi_violations = isi_violations
         self._isi_label = isi_label
+        self._structure_layer = structure_layer
         self._presence_ratio = presence_ratio
         self._amplitude_cutoff = amplitude_cutoff
         self._mean_waveforms = mean_waveforms
@@ -120,6 +122,10 @@ class Unit(DataObject):
     @property
     def isi_label(self) -> str:
         return self._isi_label
+    
+    @property
+    def structure_layer(self) -> str:
+        return self._structure_layer
     
     @property
     def presence_ratio(self) -> float:
