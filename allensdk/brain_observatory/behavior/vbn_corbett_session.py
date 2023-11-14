@@ -81,14 +81,14 @@ from allensdk.internal.api import PostgresQueryMixin, db_connection_creator
 from pynwb import NWBFile
 
 
-class DynamicGatingSession(
+class VBNCorbettSession(
     DataObject,
     LimsReadableInterface,
     NwbReadableInterface,
     JsonReadableInterface,
     NwbWritableInterface,
 ):
-    """Represents data from a single Dynamic Gating session.
+    """Represents data from a single vbn opto session.
     Initialize by using class methods `from_lims` or `from_nwb_path`.
     """
 
@@ -110,7 +110,7 @@ class DynamicGatingSession(
         eye_tracking_rig_geometry: Optional[EyeTrackingRigGeometry] = None,
     ):
         super().__init__(
-            name="dynamic_gating_session", value=None, is_value_self=True
+            name="vbn_corbett_session", value=None, is_value_self=True
         )
 
         self._behavior_session_id = behavior_session_id
@@ -142,7 +142,7 @@ class DynamicGatingSession(
         eye_tracking_drop_frames: bool = False,
         sync_file_permissive: bool = False,
         running_speed_load_from_multiple_stimulus_files: bool = False,
-    ) -> "DynamicGatingSession":
+    ) -> "VBNCorbettSession":
         """
 
         Parameters
@@ -348,7 +348,7 @@ class DynamicGatingSession(
         date_of_acquisition: Optional[DateOfAcquisition] = None,
         eye_tracking_z_threshold: float = 3.0,
         eye_tracking_dilation_frames: int = 2,
-    ) -> "DynamicGatingSession":
+    ) -> "VBNCorbettSession":
         """
 
         Parameters
@@ -477,7 +477,7 @@ class DynamicGatingSession(
                 behavior_session_id=behavior_session_id.value, lims_db=lims_db
             )
 
-        return DynamicGatingSession(
+        return VBNCorbettSession(
             behavior_session_id=behavior_session_id,
             stimulus_timestamps=stimulus_timestamps,
             running_acquisition=running_acquisition,
@@ -501,7 +501,7 @@ class DynamicGatingSession(
         add_is_change_to_stimulus_presentations_table=True,
         eye_tracking_z_threshold: float = 3.0,
         eye_tracking_dilation_frames: int = 2,
-    ) -> "DynamicGatingSession":
+    ) -> "VBNCorbettSession":
         """
 
         Parameters
@@ -580,7 +580,7 @@ class DynamicGatingSession(
         )
 
     @classmethod
-    def from_nwb_path(cls, nwb_path: str, **kwargs) -> "DynamicGatingSession":
+    def from_nwb_path(cls, nwb_path: str, **kwargs) -> "VBNCorbettSession":
         """
 
         Parameters

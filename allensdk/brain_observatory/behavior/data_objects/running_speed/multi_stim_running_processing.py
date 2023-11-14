@@ -308,6 +308,10 @@ def get_stim_epoch_vsync(sync: sync_dataset.Dataset):
 
     vsync_times = sync.get_falling_edges('vsync_stim', 'seconds')
     stim_starts, stim_ends = get_stim_starts_and_ends(sync)
+    if len(stim_ends) > 2:
+        stim_starts = np.array([stim_ends[0], stim_ends[1]])
+        stim_ends = np.array([stim_ends[1], stim_ends[2]])
+
     final_vsyncs = []
 
     for index_epoch, (start, end) in enumerate(zip(stim_starts, stim_ends)):

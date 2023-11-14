@@ -288,9 +288,19 @@ class Presentations(DataObject, StimulusFileReadableInterface,
                              column_list=column_list)
 
     @classmethod
+    def remove_bad_stimulus_start_time(cls, stimulus_presentations:pd.DataFrame, trials:pd.DataFrame) -> pd.DataFrame:
+        for row_index, row in stimulus_presentations.iterrows():
+            if row.active and row.omitted and row.start_time < trials.iloc[0].start_time:
+                stimulus_presentations.drop(index=stimulus_presentations.index[row_index], inplace=True)
+
+        stimulus_presentations.index = range(len(stimulus_presentations))
+        return stimulus_presentations
+    
+    @classmethod
     def from_path(cls,
                   path: Union[str, Path],
                   behavior_session_id: int,
+                  trials: pd.DataFrame,
                   exclude_columns: Optional[List[str]] = None,
                   columns_to_rename: Optional[Dict[str, str]] = None,
                   sort_columns: bool = True
@@ -321,6 +331,9 @@ class Presentations(DataObject, StimulusFileReadableInterface,
         df = cls._postprocess(presentations=df,
                               fill_omitted_values=False,
                               coerce_bool_to_boolean=True)
+        
+        df = cls.remove_bad_stimulus_start_time(df, trials)
+        
         return Presentations(presentations=df,
                              columns_to_rename=columns_to_rename,
                              sort_columns=sort_columns)
