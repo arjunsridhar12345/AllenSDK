@@ -108,7 +108,10 @@ class SubjectMetadata(DataObject, LimsReadableInterface, NwbReadableInterface,
             lims_db=db_connection_creator(
                 fallback_credentials=LIMS_DB_CREDENTIAL_MAP))
         """
-        death_on = parser.parse(dict_repr['death_on'])
+        if 'death_on' in dict_repr:
+            death_on = parser.parse(dict_repr['death_on'])
+        else:
+            death_on = None
 
         return cls(
             sex=sex,

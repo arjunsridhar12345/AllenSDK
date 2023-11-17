@@ -163,7 +163,12 @@ class TaskParameters(DataObject, StimulusFileReadableInterface,
         task = cls._parse_task(stimulus_file=stimulus_file)
         n_stimulus_frames = cls._calculuate_n_stimulus_frames(
             stimulus_file=stimulus_file)
-        no_reward = behavior['params']['lick_disable_intervals'][0]
+        
+        if 'lick_disable_intervals' in behavior['params']:
+            no_reward = behavior['params']['lick_disable_intervals'][0]
+        else:
+            no_reward = [0, 0]
+
         return TaskParameters(
             blank_duration_sec=blank_duration_sec,
             stimulus_duration_sec=stim_duration,

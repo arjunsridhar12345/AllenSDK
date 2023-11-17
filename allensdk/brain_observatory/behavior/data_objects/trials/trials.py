@@ -601,9 +601,9 @@ class DynamicGatingTrials(Trials):
         # Order/Filter columns
         trials = trials[cls.columns_to_output()]
 
-        trials["no_reward_epoch"] = trials.apply(partial(cls.infer_no_reward_epoch, raw=bsf), axis=1)
-        trials["omitted_reward"] = trials.apply(partial(cls.infer_omitted_reward, raw=bsf), axis=1)
-        trials["is_sham_change"] = trials.apply(cls.infer_is_sham_change, axis=1)
+        #trials["no_reward_epoch"] = trials.apply(partial(cls.infer_no_reward_epoch, raw=bsf), axis=1)
+        #trials["omitted_reward"] = trials.apply(partial(cls.infer_omitted_reward, raw=bsf), axis=1)
+        #trials["is_sham_change"] = trials.apply(cls.infer_is_sham_change, axis=1)
 
         return cls(
             trials=trials,
