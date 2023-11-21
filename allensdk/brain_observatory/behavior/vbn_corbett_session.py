@@ -1323,8 +1323,7 @@ class VBNCorbettSession(
         )
         """
 
-        stimulus_timestamps = StimulusTimestamps.from_stimulus_file(BehaviorStimulusFile(stimulus_file_lookup.behavior_stimulus_file.filepath),
-                                                                                      monitor_delay=0.0)
+        stimulus_timestamps = StimulusTimestamps.from_sync_file(sync_file=sync_file, monitor_delay=0.0)
         return Licks.from_stimulus_file(
             stimulus_file=stimulus_file_lookup.behavior_stimulus_file,
             stimulus_timestamps=stimulus_timestamps,
@@ -1340,8 +1339,7 @@ class VBNCorbettSession(
         Construct the Rewards data object for this session
         """
 
-        stimulus_timestamps = StimulusTimestamps.from_stimulus_file(BehaviorStimulusFile(stimulus_file_lookup.behavior_stimulus_file.filepath),
-                                                                            monitor_delay=0.0)
+        stimulus_timestamps = StimulusTimestamps.from_sync_file(sync_file=sync_file, monitor_delay=0.0)
 
         return Rewards.from_stimulus_file(
             stimulus_file=stimulus_file_lookup.behavior_stimulus_file,
@@ -1361,8 +1359,7 @@ class VBNCorbettSession(
         Construct the Stimuli data object for this session
         """
 
-        stimulus_timestamps = StimulusTimestamps.from_stimulus_file(BehaviorStimulusFile(stimulus_file_lookup.behavior_stimulus_file.filepath),
-                                                                    monitor_delay=monitor_delay)
+        stimulus_timestamps = StimulusTimestamps.from_sync_file(sync_file=sync_file, monitor_delay=monitor_delay)
 
         return Stimuli.from_stimulus_file(
             behavior_session_id=behavior_session_id,
@@ -1391,8 +1388,7 @@ class VBNCorbettSession(
             monitor_delay=monitor_delay,
         )
         """
-        stimulus_timestamps = StimulusTimestamps.from_stimulus_file(BehaviorStimulusFile(stimulus_file_lookup.behavior_stimulus_file.filepath), 
-                                                                    monitor_delay=monitor_delay)
+        stimulus_timestamps = StimulusTimestamps.from_sync_file(sync_file=sync_file, monitor_delay=monitor_delay)
 
         return cls._trials_class().trials_from_dynamic_gating_stimulus(
             stimulus_file=stimulus_file_lookup.behavior_stimulus_file,
