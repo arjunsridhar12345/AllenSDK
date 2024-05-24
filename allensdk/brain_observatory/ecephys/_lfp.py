@@ -56,7 +56,7 @@ class LFP(DataObject, JsonReadableInterface):
     def from_json(
             cls,
             probe_meta: dict,
-            amplitude_scale_factor: float = 0.195e-6
+            amplitude_scale_factor: float = 0.195e-6,
     ) -> "LFP":
         """
 
@@ -72,6 +72,7 @@ class LFP(DataObject, JsonReadableInterface):
         -------
         `LFP` instance
         """
+        scale_lfp = probe_meta.get('scale_mean_waveform_and_csd', 1)
         lfp_meta = probe_meta['lfp']
         lfp_channels = np.load(lfp_meta['input_channels_path'],
                                allow_pickle=False)
@@ -90,7 +91,7 @@ class LFP(DataObject, JsonReadableInterface):
                 probe_meta['lfp_sampling_rate'])
 
         return cls(
-            data=lfp_data,
+            data=lfp_data / scale_lfp,
             timestamps=lfp_timestamps,
             channels=lfp_channels,
             sampling_rate=sampling_rate

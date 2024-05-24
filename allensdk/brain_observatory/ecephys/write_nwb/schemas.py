@@ -116,6 +116,12 @@ class Probe(RaisingSchema):
                       allow_none=True,
                       help="""path to h5 file containing calculated current
                               source density""")
+    
+    scale_mean_waveform_and_csd = Float(
+        default=1,
+        help="Scale factor for scaling sessions in lfp, csd, spike amplitudes, mean waveforms",
+        required=True
+    )
     sampling_rate = Float(
         default=30000.0,
         help="""sampling rate (Hz, master clock) at which raw data were

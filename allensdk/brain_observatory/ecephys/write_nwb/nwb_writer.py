@@ -161,7 +161,7 @@ class DynamicGatingEcephysNwbWriter(NWBWriter):
 
             if probe_nwbfile is not None:
                 probe_nwb_path = Path(self._nwb_filepath).parent / \
-                    f'{session_id}_lfp_{probe_name}.nwb'
+                    f'{session_id}_lfp_{probe_name}_rescaled.nwb'
                 logging.info(f'Writing probe NWB file to '
                              f'{probe_nwb_path}')
                 with NWBHDF5IO(probe_nwb_path, 'w') as nwb_file_writer:

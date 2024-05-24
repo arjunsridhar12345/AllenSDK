@@ -47,7 +47,8 @@ class Units(DataObject, JsonReadableInterface, NwbReadableInterface):
         )
         mean_waveforms = _read_waveforms_to_dictionary(
             probe['mean_waveforms_path'],
-            local_to_global_unit_map
+            local_to_global_unit_map,
+            mean_waveform_scale=probe.get('scale_mean_waveform_and_csd', 1)
         )
         spike_amplitudes = _read_spike_amplitudes_to_dictionary(
             probe["spike_amplitudes_path"],
@@ -57,7 +58,8 @@ class Units(DataObject, JsonReadableInterface, NwbReadableInterface):
             probe["inverse_whitening_matrix_path"],
             local_to_global_unit_map=local_to_global_unit_map,
             scale_factor=probe.get('amplitude_scale_factor',
-                                   amplitude_scale_factor)
+                                   amplitude_scale_factor),
+            amplitudes_scale=probe.get('scale_mean_waveform_csd', 1)
         )
         units = [
             Unit(**unit,
@@ -102,9 +104,11 @@ def _read_spike_amplitudes_to_dictionary(
         spike_amplitudes_path, spike_units_path,
         templates_path, spike_templates_path, inverse_whitening_matrix_path,
         local_to_global_unit_map=None,
-        scale_factor=0.195e-6
-):
-    spike_amplitudes = load_and_squeeze_npy(spike_amplitudes_path)
+        scale_factor=0.195e-6,
+        amplitudes_scale=1
+):  
+    print('Spike amplitudes scale', amplitudes_scale)
+    spike_amplitudes = load_and_squeeze_npy(spike_amplitudes_path) / amplitudes_scale
     spike_units = load_and_squeeze_npy(spike_units_path)
 
     templates = load_and_squeeze_npy(templates_path)
@@ -129,7 +133,7 @@ def _read_spike_amplitudes_to_dictionary(
 
 
 def _read_waveforms_to_dictionary(
-        waveforms_path, local_to_global_unit_map=None, peak_channel_map=None
+        waveforms_path, local_to_global_unit_map=None, peak_channel_map=None, mean_waveform_scale:int=1
 ):
     """ Builds a lookup table for unitwise waveform data
 
@@ -169,7 +173,7 @@ def _read_waveforms_to_dictionary(
         if peak_channel_map is not None:
             waveform = waveform[:, peak_channel_map[unit_id]]
 
-        output_waveforms[unit_id] = np.squeeze(waveform)
+        output_waveforms[unit_id] = np.squeeze(waveform) / mean_waveform_scale
 
     return output_waveforms
 
